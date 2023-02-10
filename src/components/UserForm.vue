@@ -135,6 +135,9 @@ export default {
       this.users = this.users.filter(
         (item) => item.id !== this.currentUser[0].id
       );
+      this.currentListUser = this.currentListUser.filter(
+        (item) => item.id !== this.currentUser[0].id
+      );
       this.visibleModal = false;
       this.currentUser = [];
     },
