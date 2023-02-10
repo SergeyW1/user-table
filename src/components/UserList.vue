@@ -1,6 +1,6 @@
 <template>
   <div class="content-users">
-    <div class="sort-user">
+    <!-- <div class="sort-user">
       <div>Сортировка:</div>
       <div class="tab-select">
         <div
@@ -18,7 +18,7 @@
           Рейтинг
         </div>
       </div>
-    </div>
+    </div> -->
     <div class="user-list">
       <table class="user-list__item" v-if="filteredUser.length">
         <tbody>
@@ -68,12 +68,8 @@ export default {
       type: String,
       required: true,
     },
-    activeClassSort: {
-      type: Boolean,
-      required: true,
-    },
   },
-  emits: ["user", "open-modal", "sort-data-registr", "sort-rating"],
+  emits: ["user", "open-modal"],
   computed: {
     filteredUser() {
       let from = (this.pageNumber - 1) * this.usersPerPage;
@@ -91,26 +87,8 @@ export default {
     },
   },
   methods: {
-    activeSort(item) {
-      this.isActive = { [item]: true };
-    },
     pageClick(user) {
       this.pageNumber = user;
-    },
-    sortByDateRegistr(item) {
-      this.activeSort(item);
-      this.$emit("sort-data-registr", this.users);
-    },
-    sortByRating(item) {
-      this.activeSort(item);
-      this.$emit("sort-rating", this.users);
-    },
-  },
-  watch: {
-    activeClassSort() {
-      if (this.activeClassSort === false) {
-        this.isActive = {};
-      }
     },
   },
 };
@@ -121,34 +99,6 @@ export default {
 
 .content-users {
   width: 961px;
-  margin-top: 72px;
-}
-
-.sort-user {
-  display: flex;
-  justify-content: space-between;
-  width: 240px;
-  font-family: "Inter", sans-serif;
-  font-weight: 500;
-  font-size: 11px;
-  line-height: 14px;
-  color: #9eaab4;
-}
-
-.tab-select {
-  display: flex;
-  width: 100%;
-  justify-content: space-evenly;
-}
-
-.sort-user__selection {
-  cursor: pointer;
-  border-bottom: 1.7px #9eaab4 dashed;
-}
-
-.active-sort {
-  color: #333333;
-  border-bottom: 1.7px #333333 dashed;
 }
 
 .user-list {

@@ -59,14 +59,31 @@
         <span @click="cleanFilter">Очистить фильтр</span>
       </div>
     </div>
+    <div class="sort-user">
+      <div>Сортировка:</div>
+      <div class="tab-select">
+        <div
+          @click="sortByDateRegistr('first')"
+          :class="{ 'active-sort': isActive['first'] }"
+          class="sort-user__selection"
+        >
+          Дата регистрации
+        </div>
+        <div
+          @click="sortByRating('second')"
+          :class="{ 'active-sort': isActive['second'] }"
+          class="sort-user__selection"
+        >
+          Рейтинг
+        </div>
+      </div>
+    </div>
     <user-list
       :users="users"
       :searchUser="searchUser"
       @open-modal="activeModal"
-      @sort-data-registr="sortByDateRegistr"
-      @sort-rating="sortByRating"
-      :activeClassSort="activeClassSort"
     ></user-list>
+
     <div class="dialog" :class="{ 'dialog-active': visibleModal }">
       <div @click.stop class="dialog__content">
         <div class="select">
@@ -89,6 +106,9 @@ export default {
   name: "user-form",
   data() {
     return {
+      sortRate: true,
+      sortDate: true,
+      isActive: {},
       active: false,
       visibleModal: false,
       searchUser: "",
@@ -96,7 +116,7 @@ export default {
       filterUser: [],
       currentUser: [],
       userItem: {},
-      activeClassSort: true,
+      currentListUser: [],
     };
   },
   methods: {
@@ -106,6 +126,7 @@ export default {
           "https://5ebbb8e5f2cfeb001697d05c.mockapi.io/users"
         );
         this.users = response.data;
+        this.users.forEach((user) => this.currentListUser.push(user));
       } catch (err) {
         alert("Error User", err);
       }
@@ -125,24 +146,43 @@ export default {
       this.currentUser.push(user);
       this.visibleModal = bool;
     },
-    sortByDateRegistr(users) {
-      this.activeClassSort = true;
-      this.userItem = null;
-      users.sort((a, b) =>
-        a.registration_date.localeCompare(b.registration_date)
-      );
-      this.userItem = users;
+    activeSort(item) {
+      this.isActive = { [item]: true };
     },
-    sortByRating(users) {
-      this.activeClassSort = true;
+    sortByDateRegistr(item) {
+      this.activeSort(item);
       this.userItem = null;
-      users.sort((a, b) => a.rating - b.rating);
-      this.userItem = users;
+      this.sortDate = !this.sortDate;
+      if (this.sortDate) {
+        this.users.sort((a, b) =>
+          b.registration_date.localeCompare(a.registration_date)
+        );
+      } else {
+        this.users.sort((a, b) =>
+          a.registration_date.localeCompare(b.registration_date)
+        );
+      }
+      this.userItem = this.users;
+    },
+    sortByRating(item) {
+      this.activeSort(item);
+      this.userItem = null;
+      this.sortRate = !this.sortRate;
+      if (this.sortRate) {
+        this.users.sort((a, b) => b.rating - a.rating);
+      } else {
+        this.users.sort((a, b) => a.rating - b.rating);
+      }
+      this.userItem = this.users;
     },
     cleanFilter() {
-      this.activeClassSort = false;
+      this.isActive = {};
       this.searchUser = "";
       this.userItem = null;
+      this.users = [];
+      this.currentListUser.forEach((user) => {
+        this.users.push(user);
+      });
     },
   },
   watch: {
@@ -310,5 +350,33 @@ export default {
 .selected-no {
   background-color: #0cb4f1;
   color: #ffffff;
+}
+
+.sort-user {
+  display: flex;
+  justify-content: space-between;
+  width: 240px;
+  font-family: "Inter", sans-serif;
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 14px;
+  color: #9eaab4;
+  margin-top: 72px;
+}
+
+.tab-select {
+  display: flex;
+  width: 100%;
+  justify-content: space-evenly;
+}
+
+.sort-user__selection {
+  cursor: pointer;
+  border-bottom: 1.7px #9eaab4 dashed;
+}
+
+.active-sort {
+  color: #333333;
+  border-bottom: 1.7px #333333 dashed;
 }
 </style>
