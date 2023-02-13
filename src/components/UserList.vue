@@ -95,13 +95,6 @@ export default {
         );
       });
     },
-    // users() {
-    //   const newSet = [];
-    //   this.users.forEach((user) => {
-    //     newSet.push(user);
-    //   });
-    //   this.pagesCheck = [...new Set(newSet)];
-    // },
   },
 };
 </script>

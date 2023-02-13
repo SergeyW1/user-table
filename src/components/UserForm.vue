@@ -158,7 +158,7 @@ export default {
       this.activeSort(item);
       this.userItem = null;
       this.sortDate = !this.sortDate;
-      if (this.sortDate) {
+      if (!this.sortDate) {
         this.users.sort((a, b) =>
           b.registration_date.localeCompare(a.registration_date)
         );
@@ -173,7 +173,7 @@ export default {
       this.activeSort(item);
       this.userItem = null;
       this.sortRate = !this.sortRate;
-      if (this.sortRate) {
+      if (!this.sortRate) {
         this.users.sort((a, b) => b.rating - a.rating);
       } else {
         this.users.sort((a, b) => a.rating - b.rating);
