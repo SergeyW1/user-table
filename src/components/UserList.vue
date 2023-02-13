@@ -1,7 +1,7 @@
 <template>
   <div class="content-users">
     <div class="user-list">
-      <table class="user-list__item">
+      <table class="user-list__item" v-if="filteredUser.length">
         <tbody>
           <tr class="tr-user">
             <th>Имя пользователя</th>
@@ -17,8 +17,7 @@
           </tr>
         </tbody>
       </table>
-      <!-- <div v-else class="list-empty">Список пользователей пуст!</div> -->
-      <!-- v-if="filteredUser.length" -->
+      <div v-else class="list-empty">Список пользователей пуст!</div>
     </div>
     <pagination-item
       :users="users"
@@ -88,13 +87,6 @@ export default {
       if (this.searchUser !== "") {
         this.pageNumber = 1;
       }
-      // const check = [];
-      // if (this.pageNumber > 1) {
-      //   this.pages.forEach((user) => {
-      //     check.push(user);
-      //   });
-      // }
-      // this.pagesCheck = [...new Set(check)];
     },
   },
 };
