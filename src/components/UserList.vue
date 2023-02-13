@@ -72,7 +72,7 @@ export default {
         .slice(from, to);
     },
     filteredUserSize() {
-      return this.pagesCheck.filter((item) => {
+      return this.users.filter((item) => {
         return (
           item.username.toLowerCase().includes(this.searchUser.toLowerCase()) ||
           item.email.toLowerCase().includes(this.searchUser.toLowerCase())
@@ -95,13 +95,13 @@ export default {
         );
       });
     },
-    users() {
-      const newSet = [];
-      this.users.forEach((user) => {
-        newSet.push(user);
-      });
-      this.pagesCheck = [...new Set(newSet)];
-    },
+    // users() {
+    //   const newSet = [];
+    //   this.users.forEach((user) => {
+    //     newSet.push(user);
+    //   });
+    //   this.pagesCheck = [...new Set(newSet)];
+    // },
   },
 };
 </script>

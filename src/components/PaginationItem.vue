@@ -27,8 +27,7 @@ export default {
       required: true,
     },
     filteredUserSize: {
-      type: Function,
-      required: true,
+      type: Array,
     },
   },
   methods: {
