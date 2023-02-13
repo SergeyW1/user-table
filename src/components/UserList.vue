@@ -23,6 +23,7 @@
       :users="users"
       @page-click="pageClick"
       :pageNumber="pageNumber"
+      :filteredUserSize="filteredUserSize"
     />
   </div>
 </template>
@@ -37,7 +38,6 @@ export default {
       isActive: {},
       usersPerPage: 5,
       pageNumber: 1,
-      usersSort: null,
       pagesCheck: [],
     };
   },
@@ -71,22 +71,36 @@ export default {
         })
         .slice(from, to);
     },
+    filteredUserSize() {
+      return this.pagesCheck.filter((item) => {
+        return (
+          item.username.toLowerCase().includes(this.searchUser.toLowerCase()) ||
+          item.email.toLowerCase().includes(this.searchUser.toLowerCase())
+        );
+      });
+    },
   },
   methods: {
     pageClick(user) {
       this.pageNumber = user;
     },
   },
-  mounted() {
-    this.pages.forEach((user) => {
-      this.pagesCheck.push(user);
-    });
-  },
   watch: {
     searchUser() {
-      if (this.searchUser !== "") {
-        this.pageNumber = 1;
-      }
+      this.pageNumber = 1;
+      this.pagesCheck.filter((item) => {
+        return (
+          item.username.toLowerCase().includes(this.searchUser.toLowerCase()) ||
+          item.email.toLowerCase().includes(this.searchUser.toLowerCase())
+        );
+      });
+    },
+    users() {
+      const newSet = [];
+      this.users.forEach((user) => {
+        newSet.push(user);
+      });
+      this.pagesCheck = [...new Set(newSet)];
     },
   },
 };

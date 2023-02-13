@@ -26,11 +26,10 @@ export default {
       type: Number,
       required: true,
     },
-  },
-  data() {
-    return {
-      isActive: {},
-    };
+    filteredUserSize: {
+      type: Function,
+      required: true,
+    },
   },
   methods: {
     pageClick(page) {
@@ -39,7 +38,7 @@ export default {
   },
   computed: {
     pages() {
-      return Math.ceil(this.users.length / 5);
+      return Math.ceil(this.filteredUserSize.length / 5);
     },
   },
 };

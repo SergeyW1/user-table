@@ -129,9 +129,6 @@ export default {
         const data = await response.json();
         this.users = data;
         this.users.forEach((user) => this.currentListUser.push(user));
-        this.users.forEach((user) => {
-          this.pages.push(user);
-        });
       } catch (err) {
         alert("Error User", err);
       }
