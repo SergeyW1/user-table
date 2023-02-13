@@ -1,26 +1,7 @@
 <template>
   <div class="content-users">
-    <!-- <div class="sort-user">
-      <div>Сортировка:</div>
-      <div class="tab-select">
-        <div
-          @click="sortByDateRegistr('first')"
-          :class="{ 'active-sort': isActive['first'] }"
-          class="sort-user__selection"
-        >
-          Дата регистрации
-        </div>
-        <div
-          @click="sortByRating('second')"
-          :class="{ 'active-sort': isActive['second'] }"
-          class="sort-user__selection"
-        >
-          Рейтинг
-        </div>
-      </div>
-    </div> -->
     <div class="user-list">
-      <table class="user-list__item" v-if="filteredUser.length">
+      <table class="user-list__item">
         <tbody>
           <tr class="tr-user">
             <th>Имя пользователя</th>
@@ -36,7 +17,8 @@
           </tr>
         </tbody>
       </table>
-      <div v-else class="list-empty">Список пользователей пуст!</div>
+      <!-- <div v-else class="list-empty">Список пользователей пуст!</div> -->
+      <!-- v-if="filteredUser.length" -->
     </div>
     <pagination-item
       :users="users"
@@ -57,6 +39,7 @@ export default {
       usersPerPage: 5,
       pageNumber: 1,
       usersSort: null,
+      pagesCheck: [],
     };
   },
   props: {
@@ -66,6 +49,10 @@ export default {
     },
     searchUser: {
       type: String,
+      required: true,
+    },
+    pages: {
+      type: Array,
       required: true,
     },
   },
@@ -89,6 +76,25 @@ export default {
   methods: {
     pageClick(user) {
       this.pageNumber = user;
+    },
+  },
+  mounted() {
+    this.pages.forEach((user) => {
+      this.pagesCheck.push(user);
+    });
+  },
+  watch: {
+    searchUser() {
+      if (this.searchUser !== "") {
+        this.pageNumber = 1;
+      }
+      // const check = [];
+      // if (this.pageNumber > 1) {
+      //   this.pages.forEach((user) => {
+      //     check.push(user);
+      //   });
+      // }
+      // this.pagesCheck = [...new Set(check)];
     },
   },
 };

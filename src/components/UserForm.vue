@@ -82,6 +82,7 @@
       :users="users"
       :searchUser="searchUser"
       @open-modal="activeModal"
+      :pages="pages"
     ></user-list>
 
     <div class="dialog" :class="{ 'dialog-active': visibleModal }">
@@ -99,7 +100,6 @@
 </template>
 
 <script>
-import axios from "axios";
 import UserList from "./UserList.vue";
 export default {
   components: { UserList },
@@ -117,16 +117,21 @@ export default {
       currentUser: [],
       userItem: {},
       currentListUser: [],
+      pages: [],
     };
   },
   methods: {
     async getUsers() {
       try {
-        const response = await axios.get(
+        const response = await fetch(
           "https://5ebbb8e5f2cfeb001697d05c.mockapi.io/users"
         );
-        this.users = response.data;
+        const data = await response.json();
+        this.users = data;
         this.users.forEach((user) => this.currentListUser.push(user));
+        this.users.forEach((user) => {
+          this.pages.push(user);
+        });
       } catch (err) {
         alert("Error User", err);
       }
