@@ -11,5 +11,4 @@
 - Implemented pagination
 
 - Implemented the ability to remove a user from the list
-
 ```
