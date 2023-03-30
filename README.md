@@ -11,4 +11,4 @@
 - Implemented the ability to remove a user from the list
 ```
 
-# Url: https://sergeyw1.github.io/user-table/
+# Link: https://sergeyw1.github.io/user-table/
