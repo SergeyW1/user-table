@@ -1,43 +1,30 @@
 # User Table
 
-## The following functionality is implemented on the client side:
+## На стороне клиента реализована следующая функциональность:
 ```
-- Ability to search users by username or e-mail address
+- Возможность поиска пользователей по имени пользователя или адресу электронной почты
 
-- Ability to sort the table by the following fields: date of registration, rating
+- Возможность сортировки таблицы по следующим полям: дата регистрации, рейтинг
 
-- Implemented pagination
+- Реализована разбивка на страницы
 
-- Implemented the ability to remove a user from the list
-```
-
-## Functional description
-```
-- The list of users is obtained using a GET request
-
-- When you click on the "Registration Date" in the sorting, the list is sorted by registration date
-from the largest date to the smallest when you click on the sorting field again.
-dates, the list is sorted by date from the smallest date to the largest.
-
-- When you click on "Progress" in sorting, the list is sorted by the "Progress" field in
-ascending/descending order, similar to the "Registration Date" field.
-
-- The clear filter button appears when the search is active or after sorting by any of the fields is applied
-
-- When you click on the button, the search and sort filter is reset
+- Реализована возможность удаления пользователя из списка
 ```
 
-### The response is a list of users with the following fields:
+## Функциональное описание
 ```
-— id – Unique user number
+- Список пользователей получен с помощью запроса GET
 
-— login – User name
+- Когда вы нажимаете на "Дату регистрации" в сортировке, список сортируется по дате регистрации
+от самой большой даты до самой маленькой, когда вы снова нажимаете на поле сортировки.
+даты, список отсортирован по дате от наименьшей даты к наибольшей.
 
-— email – the user's email address
+- Когда вы нажимаете на "Прогресс" при сортировке, список сортируется по полю "Прогресс" в
+порядке возрастания/убывания, аналогично полю "Дата регистрации".
 
-— registration_date – registration date
+- Кнопка очистить фильтр появляется при активном поиске или после применения сортировки по любому из полей
 
-— rating – user rating
+- Когда вы нажимаете на кнопку, фильтр поиска и сортировки сбрасывается
 ```
 
 
